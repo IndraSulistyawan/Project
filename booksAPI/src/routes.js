@@ -1,18 +1,20 @@
+const {addNoteHandler, getAllBooks, getBooksById} = require("./handler")
 const routes = [
     {
-        method: "GET",
-        path: "/",
-        handler: (request, h) => {
-            return "HomePage"
-        }
+        method: "POST",
+        path: "/books",
+        handler: addNoteHandler,
     },
     {
         method: "GET",
-        path: "/about",
-        handler: (request, h) => {
-            return "about page"
-        }
+        path: "/books",
+        handler: getAllBooks
     },
+    {
+        method: "GET",
+        path: "/books/{bookid}",
+        handler: getBooksById
+    }
 ]
 
 module.exports = routes
