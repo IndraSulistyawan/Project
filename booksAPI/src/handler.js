@@ -1,5 +1,5 @@
 const {nanoid} = require('nanoid')
-const books = require('./notes')
+const books = require('./books')
 
 const addNoteHandler = (request, h) => {
     const {name, year, author, summary, publisher, pageCount, readPage, reading} = request.payload
@@ -15,7 +15,7 @@ const addNoteHandler = (request, h) => {
 
     books.push(newBooks);
 
-    const isSucces = notes.filter((note) => note.id === id);
+    const isSucces = books.filter((note) => note.id === id);
 
     if(isSucces){
         const response = h.response({
@@ -87,9 +87,88 @@ const getBooksById = (request, h) => {
       return response;
 }
 
+const editBooksById = (request, h) => {
+    const {id} = request.params
+
+    const {name, year, author, summary, publisher, pageCount, readPage, reading} = request.payload
+    const updatedAt = new Date().toISOString()
+
+    const index = books.findIndex((book) => book.id === id)
+
+    if (index !== -1) {
+        books[index] = {
+          ...books[index],
+          name,
+          year,
+          author,
+          summary,
+          publisher,
+          pageCount.
+          readPage,
+          reading,
+          updatedAt,
+        };
+        const response = h.response({
+            status: "succes",
+            message: "Buku berhasil diperbarui",
+        })
+        response.code(200)
+        return response
+    }
+
+    if(!name){
+        const response = h.response({
+            status: "fail",
+            message: "Gagal memperbarui buku. Mohon isi nama buku",
+            
+        })
+        response.code(400)
+        return response
+    }
+
+    if(readPage > pageCount){
+        const response = h.response({
+            status: "fail",
+            message: "Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount",
+        })
+        response.code(400)
+        return response
+    }
+
+    const response = h.response({
+        status: "fail",
+        "Gagal memperbarui buku. Id tidak ditemukan",
+    })
+
+
+}
+
+const deleteBookById = (request, h) => {
+    const {id} = request.params
+    const index = books.findIndex((book) => book.id === id)
+
+    if(index !== -1){
+        books.splice(index, 1)
+        const response = h.response({
+            status: 'succes',
+            message: 'Buku berhasil dihapus',
+          });
+          response.code(200)
+          return response
+    }
+
+    const response = h.response ({
+        status: "fail",
+        message: "Buku gagal dihapus. Id tidak ditemukan",
+    })
+    response.code(404)
+    return response
+}
+
 
 module.exports = {
     addNoteHandler,
     getAllBooks,
     getBooksById,
+    editBooksById,
 }
