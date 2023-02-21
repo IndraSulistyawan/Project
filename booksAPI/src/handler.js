@@ -10,15 +10,22 @@ const addBooksHandler = (request, h) => {
     
     finished = (pageCount === readPage) ? true : false;
 
+
+
     const newBooks = {
         id, name, year, author, summary, publisher, pageCount, readPage, finished, reading, insertedAt, updatedAt
     }
 
-    books.push(newBooks);
 
-    const isSucces = books.filter((note) => note.id === id);
 
-    
+    if(readPage > pageCount){
+        const response = h.response({
+            status: "fail",
+            message: "Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount"
+        })
+        response.code(400)
+        return response
+    }
 
     if(!name){
         const response = h.response({
@@ -30,21 +37,17 @@ const addBooksHandler = (request, h) => {
         return response
     }
 
-    if(readPage > pageCount){
-        const response = h.response({
-            status: "fail",
-            message: "Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount"
-        })
-        response.code(400)
-        return response
-    }
+    
 
-    if(isSucces){
+    
+    books.push(newBooks);
+    const isSucces = books.filter((note) => note.id === id);
+if(isSucces){
         const response = h.response({
             status: "success",
             message: "Buku berhasil ditambahkan",
             data: {
-                noteId: id
+                bookId: id
             }
         })
         response.code(201)
@@ -62,7 +65,7 @@ const addBooksHandler = (request, h) => {
 }
 
 const getAllBooks = () => ({
-    status: 'succes',
+    status: 'success',
     data: {
         books,
     }
@@ -77,7 +80,9 @@ const getBooksById = (request, h) => {
         return {
           status: 'success',
           data: {
-            book,
+            id: book.id,
+            name: book.name,
+            ppublisher: book.publisher
           },
         };
       }
@@ -134,7 +139,7 @@ const editBooksById = (request, h) => {
           updatedAt,
         };
         const response = h.response({
-            status: "succes",
+            status: "success",
             message: "Buku berhasil diperbarui",
         })
         response.code(200)
