@@ -67,7 +67,7 @@ if(isSucces){
 const getAllBooks = () => ({
     status: 'success',
     data: {
-        books,
+        books: books.map(({id, name, publisher}) => ({id, name, publisher}))
     }
 });
 
@@ -80,9 +80,7 @@ const getBooksById = (request, h) => {
         return {
           status: 'success',
           data: {
-            id: book.id,
-            name: book.name,
-            ppublisher: book.publisher
+            book,
           },
         };
       }
