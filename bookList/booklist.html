@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="contianer border-2 flex flex-col justify-center">
+        <nav>
+            <h1 class="text-center p-5 text-lg ">My BookList</h1>
+        </nav>
+        <div class="input-container m-10 flex justify-center gap-3">
+            <input type="text" class="border-2"  placeholder="Search Book..." id="inputField">
+            <button class="border-2 " id="buttonInput">Add Book</button>
+        </div>
+        <div id="popup" class="fixed bg-sky-300 w-60 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden flex-col justify-center items-center gap-3 flex">
+            <label for="nama" class="pt-5">Nama</label>
+            <input type="text" name="nama" class="name-value">
+            <label for="resume">Buku</label>
+            <input type="text" name="resume" class="resume-value">
+            <label for="tahun">Tahun</label>
+            <input type="text" name="tahun" class="year-value">
+            <div class="flex justify-end pb-10">
+                <button id="addingBook" class="bg-green-500 text-white font-bold py-2 px-4 rounded mr-2">Add</button>
+                <button id="cancelBook" class="bg-red-500 text-white font-bold py-2 px-4 rounded">Cancel</button>
+              </div>
+        </div>          
+          
+        <div class="show-book border-1 flex flex-col gap-7">
+            <div class="outer ml-7 flex justify-between">
+                <div class="wrap">
+                    <h3>hary potter</h3>
+                    <p>bercerita tentang dunia sihir</p>
+                    <p>2000 - 2005</p>
+                </div>
+                <label class="flex flex-col ">
+                    <input type="checkbox">
+                    <span>Done Reading</span>
+                </label>
+            </div>
+            <div class="outer ml-7 flex justify-between">
+                <div class="wrap">
+                    <h3>Dilan 1995</h3>
+                    <p>cerita dilann saat kuliah semester akhir</p>
+                    <p>2023 - 2024</p>
+                </div>
+                <label class="flex flex-col ">
+                    <input type="checkbox">
+                    <span>Done Reading</span>
+                </label>
+            </div>
+            <div class="outer ml-7 flex justify-between">
+                <div class="wrap">
+                    <h3>Dear Nathan</h3>
+                    <p>bercertia tentang masa masa sma nathan dan salma</p>
+                    <p>tanggal - tanggal</p>
+                </div>
+                <label class="flex flex-col ">
+                    <input type="checkbox">
+                    <span>Done Reading</span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <script src="assets/main.js"></script>
+</body>
+</html>
